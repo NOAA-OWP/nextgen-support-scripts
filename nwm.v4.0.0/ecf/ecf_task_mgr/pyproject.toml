@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ecf_task_mgr"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+# ecflow is built from source (not on PyPI). Install via setup/install_ecflow_python_client.sh
+# before installing this package. Listed here to formally document the version constraint.
+system = [
+    "ecflow>=5.15.2",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ecf_task_mgr = ["ecflow-client-settings.json"]
+"ecf_task_mgr.tests" = ["data/*.def"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+log_cli = true
+log_cli_level = "INFO"
+addopts = "--full-trace -vv"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]

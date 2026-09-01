@@ -1,0 +1,6 @@
+%manual
+This manual is for family %FAMILY%
+This family contains all daily jobs.
+It lives in %ECF_HOME%
+%end
+This text is not visible in the man page since it is out side of the %manual..%end

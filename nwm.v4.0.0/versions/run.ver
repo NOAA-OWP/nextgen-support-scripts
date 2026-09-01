@@ -1,0 +1,71 @@
+#==============================================
+# run.ver
+# 05/10/2026         NWM v4.0
+#==============================================
+
+#----------------------------------------------
+# Set NWM version number
+#----------------------------------------------
+#export nwm_ver=v4.0.0
+export nwmVer=$(echo ${nwm_ver} | grep -Eo 'v[0-9]\.[0-9]+')
+export nwmVer1=$(echo ${nwm_ver} | grep -Eo '[0-9]\.[0-9]+')
+export MPMD=on
+
+#----------------------------------------------
+# WCOSS softwares versions
+#----------------------------------------------
+export envvar_ver=1.0
+export prod_envir_ver=2.0.6
+export prod_util_ver=2.0.14
+export PrgEnv_intel_ver=8.2.0
+export intel_ver=19.1.3.304
+export gcc_ver=11.2.0
+export cray_mpich_ver=8.1.12
+export craype_ver=2.7.13
+export pals_ver=1.1.3
+export cfp_ver=2.0.4
+export netcdf_ver=4.7.4
+export python_ver=3.8.6
+export grib2_ver=2.0.8
+export hdf5_ver=1.10.6
+export iobuf_ver=2.0.10
+export nco_ver=4.9.7
+export gsl_ver=2.7
+export udunits_ver=2.2.28
+#export prod_envir_ver=2.0.6
+#export prod_util_ver=2.0.13
+
+
+#----------------------------------------------
+#Input sources version
+#----------------------------------------------
+export cfs_ver=v2.3
+export gfs_ver=v16.3
+export nam_ver=v4.2
+export hiresw_ver=v8.1
+export rap_ver=v5.1
+export hrrr_ver=v4.1
+export pcpanl_ver=v4.1
+export blend_ver=v4.1
+export estofs_ver=v2.1
+export stofs_ver=v1.1
+#export psurge_ver=v2.10
+export psurge_ver=v3.0
+
+#----------------------------------------------
+# mpiexec and cfp commands
+#----------------------------------------------
+##export MPICOMMAND="mpiexec -n ${NPROCS} --cpu-bind core "
+#export MPICOMMAND="mpiexec -n ${NPROCS} "
+##export MPICOMMAND2="mpiexec -n ${NPROCS} --depth 2 --cpu-bind depth "
+#export MPICOMMAND2="mpiexec -n ${NPROCS} "
+##export MPICOMMAND3="mpiexec -n 1 --cpu-bind core "
+#export MPICOMMAND3="mpiexec -n 1 "
+##export CFPCOMMAND="mpiexec -np ${NPROCS} --cpu-bind core cfp"
+#export CFPCOMMAND="source"
+
+#----------------------------------------------
+# Set input forcing types (NETCDF or GRIB2)
+#----------------------------------------------
+#export InputDataFormat=GRIB2
+##export InputDataFormat=NETCDF

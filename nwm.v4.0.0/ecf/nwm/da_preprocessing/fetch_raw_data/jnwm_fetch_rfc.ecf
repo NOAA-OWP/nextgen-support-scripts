@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+%manual
+   Definition: This task download the USGS realtime streamflow observations.
+   Operations: Download data in a daemon process
+%end
+
+# SLURM settings
+##SBATCH -J FETCH_RFC
+##SBATCH -o %ECF_JOBOUT%
+##SBATCH -e %ECF_JOBOUT%.err
+##SBATCH -t 00:60:00
+##SBATCH --nodes 1
+##SBATCH --nodelist=zhengtaocui-opertestbed-00015-1-0001
+###SBATCH --exclusive
+##SBATCH --ntasks-per-node=1
+
+export model=nwm
+
+%include <head.h>
+%include <model_envir.h>
+
+#
+#Enable module loading when LMOD Environment Module 
+# is installed on the system
+#
+#module load PrgEnv-intel/${PrgEnv_intel_ver}
+#module load craype/${craype_ver}
+#module load intel/${intel_ver}
+#module load cray-pals/${pals_ver}
+#module load cfp/${cfp_ver}
+#module load python/${python_ver}
+#module load netcdf/${netcdf_ver}
+#module load wgrib2/${grib2_ver}
+#module list
+
+# EXPORT list here
+
+export ECF_HOST=%ECF_HOST%
+
+echo "I, %ECF_NAME%, am part of a suite that lives in %ECF_HOME%.  My date is '%DATE%' "
+
+export cyc=%CYC%
+export PDY=`date -u +%%Y%%m%%d`
+export CASETYPE=%CASETYPE%
+
+${HOMEnwm}/jobs/JNWM_FETCH_FLOW_DA_OBSERVATIONS
+
+%include <tail.h>

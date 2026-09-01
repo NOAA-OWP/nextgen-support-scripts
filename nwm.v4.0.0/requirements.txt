@@ -1,0 +1,7 @@
+-e git+ssh://git@github.com/NGWPC/nwm-automation-scripts.git@fe7eb1efd6ec41ded9f2e512280bb8120f65ed43#egg=ecf_task_mgr&subdirectory=nwm.v4.0.0/ecf/ecf_task_mgr
+iniconfig==2.3.0
+packaging==26.2
+pluggy==1.6.0
+pybind11==3.0.4
+Pygments==2.20.0
+pytest==9.1.1

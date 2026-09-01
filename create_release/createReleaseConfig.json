@@ -1,0 +1,303 @@
+[
+    {
+        "repo_directory" : "~/ngwpc/repositories/ngencerf-server",
+        "env": "aws",
+        "upstream_repo": "NOAA-OWP/ngencerf-server",
+        "release": "3.1.2.4.0",
+        "previous_release_tag": "3.1.2.3.1",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/ngencerf-ui",
+        "env": "aws",
+        "upstream_repo": "NOAA-OWP/ngencerf-ui",
+        "release": "3.1.2.4.0",
+        "previous_release_tag": "3.1.2.3.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/ngen-forcing",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/ngen-forcing",
+        "release": "3.1.2.5.0",
+        "previous_release_tag": "3.1.2.4.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-automation-scripts",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/nwm-automation-scripts",
+        "release": "3.1.2.0.0",
+        "previous_release_tag": "",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-cal-mgr",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/nwm-cal-mgr",
+        "release": "3.1.2.4.0",
+        "previous_release_tag": "3.1.2.3.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-coastal",
+        "env": "pw",
+        "upstream_repo": "NOAA-OWP/nwm-coastal",
+        "release": "3.1.2.1.0",
+        "previous_release_tag": "3.1.2.0.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-data-assimilation",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/nwm-data-assimilation",
+        "release": "3.1.2.2.0",
+        "previous_release_tag": "3.1.2.1.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-eval-mgr",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/nwm-eval-mgr",
+        "release": "3.1.2.2.0",
+        "previous_release_tag": "3.1.2.1.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-ewts",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/nwm-ewts",
+        "release": "3.1.2.1.0",
+        "previous_release_tag": "3.1.2.0.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-fcst-mgr",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/nwm-fcst-mgr",
+        "release": "3.1.2.3.0",
+        "previous_release_tag": "3.1.2.2.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-ngen-infra",
+        "env": "aws",
+        "upstream_repo": "NOAA-OWP/nwm-ngen-infra",
+        "release": "3.1.2.0.0",
+        "previous_release_tag": "",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-msw-mgr",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/nwm-msw-mgr",
+        "release": "3.1.2.4.0",
+        "previous_release_tag": "3.1.2.3.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-region-mgr",
+        "env": "pw",
+        "upstream_repo": "NOAA-OWP/nwm-region-mgr",
+        "release": "3.1.2.4.0",
+        "previous_release_tag": "3.1.2.3.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/nwm-rte",
+        "env": "pw",
+        "upstream_repo": "NOAA-OWP/nwm-rte",
+        "release": "3.1.2.1.0",
+        "previous_release_tag": "3.1.2.0.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/bmi-cxx",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/bmi-cxx",
+        "release": "3.1.0.4.0",
+        "previous_release_tag": "0.1.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/cfe",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/cfe",
+        "release": "3.1.2.3.0",
+        "previous_release_tag": "3.1.2.2.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/evapotranspiration",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/evapotranspiration",
+        "release": "3.1.2.1.0",
+        "previous_release_tag": "3.1.2.0.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/lgar-c",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/lgar-c",
+        "release": "3.1.2.3.0",
+        "previous_release_tag": "3.1.2.2.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/lstm",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/lstm",
+        "release": "3.1.2.3.0",
+        "previous_release_tag": "3.1.2.2.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/noah-owp-modular",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/noah-owp-modular",
+        "release": "3.1.2.2.0",
+        "previous_release_tag": "3.1.2.1.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/sac-sma",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/sac-sma",
+        "release": "3.1.2.2.0",
+        "previous_release_tag": "3.1.2.1.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/SLoTH",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/SLoTH",
+        "release": "3.1.2.0.0",
+        "previous_release_tag": "3.1.0.4.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/snow17",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/snow17",
+        "release": "3.1.2.3.0",
+        "previous_release_tag": "3.1.2.2.0",
+        "release_notes": "Updates to snow modeling behavior and integration",
+        "commit_summary" : "Integrated EWTS logging library. Updated state serialization, deserialization, reset-time, and restart handling. Updated geospatial metadata, regridding, domain, and gage handling. Updated hydrologic model outputs, model coupling, and model-specific runtime behavior. Corrected unit conversions and size/type reporting.",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/soilfreezethaw",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/soilfreezethaw",
+        "release": "3.1.2.3.0",
+        "previous_release_tag": "3.1.2.2.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/soilmoistureprofiles",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/soilmoistureprofiles",
+        "release": "3.1.2.3.0",
+        "previous_release_tag": "3.1.2.2.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/topmodel",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/topmodel",
+        "release": "3.1.2.2.0",
+        "previous_release_tag": "3.1.2.1.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/topoflow-glacier",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/topoflow-glacier",
+        "release": "3.1.2.1.0",
+        "previous_release_tag": "3.1.2.0.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/t-route",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/t-route",
+        "release": "3.1.2.4.0",
+        "previous_release_tag": "3.1.2.3.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/ueb_bmi",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/ueb_bmi",
+        "release": "3.1.2.3.0",
+        "previous_release_tag": "3.1.2.2.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "skip": true
+    },
+    {
+        "repo_directory" : "~/ngwpc/repositories/ngen",
+        "env": "all",
+        "upstream_repo": "NOAA-OWP/ngen",
+        "release": "3.1.2.4.0",
+        "previous_release_tag": "3.1.2.3.0",
+        "release_notes": "",
+        "commit_summary" : "",
+        "has_submodules": true,
+        "skip": true
+    }
+]

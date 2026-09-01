@@ -1,0 +1,107 @@
+# ecflow server build.
+# 
+# With ecflow 5.13.8, boost 1.84 is the latest compatible version due to boost::asio::deadline_timer being removed in later boost versions.
+# This build is using ecflow 5.15.2, which is the first major release that included HTTPS API, and it supports later versions of boost.
+# 
+# Usage:
+#   Required build args: BOOST_VERS_DOT, BOOST_VERS_UNDER.
+#   e.g. `docker build --build-arg BOOST_VERS_DOT=1.91.0 --build-arg BOOST_VERS_UNDER=1_91_0 -f Dockerfile.ecflow-server .`
+# 
+#   Optional build args: BASE_IMAGE_NAME, BASE_IMAGE_TAG.
+#   It has been tested using base rockylinux:8 to match the current `ngen-forcing` and `ngen` build. `dnf` package manager usage is hard-coded. It might work on other OS that have `dnf`.
+#
+
+
+# Build args and base image
+ARG BASE_IMAGE_NAME=rockylinux
+ARG BASE_IMAGE_TAG=8
+
+FROM ${BASE_IMAGE_NAME}:${BASE_IMAGE_TAG}
+
+# E.g. 1.91.0
+ARG BOOST_VERS_DOT
+# e.g. 1_91_0
+ARG BOOST_VERS_UNDER
+
+
+# Install deps
+## Python version 3.11 to match ngen-forcing and ngen
+## Boost 1.69 called out explicitly since ecflow 5.13.8 requires boost 1.69+,
+## and Rocky 8 comes with boost 1.66 by default.
+RUN dnf install epel-release -y
+# ecflow looks for static boost libs by default, so install boost169-static.
+# Might alternatively be able to use boost169-devel, with -DENABLE_STATIC_BOOST_LIBS=OFF
+# RUN dnf -y install git cmake gcc gcc-c++ boost169-static openssl-devel python3.11-devel
+RUN dnf -y install git cmake gcc gcc-c++ boost169-static openssl-devel python3.11-devel bzip2-devel zlib-devel libicu-devel
+
+
+# Build boost (from: https://www.boost.org/doc/user-guide/getting-started.html#from-source)
+RUN dnf -y install wget findutils
+RUN wget https://archives.boost.io/release/${BOOST_VERS_DOT}/source/boost_${BOOST_VERS_UNDER}.tar.gz && \
+    tar xf boost_${BOOST_VERS_UNDER}.tar.gz && \
+    cd boost_${BOOST_VERS_UNDER} && \
+    ./bootstrap.sh --with-python=/usr/bin/python3.11 \
+    --prefix=/usr/local && \
+    ./b2 cxxflags=-fPIC && \
+    ./b2 install
+ENV BOOST_ROOT=/usr/local
+ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+ENV CPLUS_INCLUDE_PATH=/usr/local/include:$CPLUS_INCLUDE_PATH
+
+
+# Build ecflow. From: https://ecflow.readthedocs.io/en/5.15.2/install/build_from_source.html
+## ~~2026-06-05: ecflow 5.13.8 calls for "ecbuild 3.4.0 or later", and ecbuild 3.14.2 is the latest version of ecbuild currently~~
+## 2026-06-05: ecflow 5.15.2 calls for "ecbuild 3.4.0 or later", and ecbuild 3.14.2 is the latest version of ecbuild currently
+RUN git clone --branch 5.15.2 https://github.com/ecmwf/ecflow.git /src/ecflow
+RUN git clone --branch 3.14.2 https://github.com/ecmwf/ecbuild.git /src/ecbuild
+## See docs for build options, e.g. custom compiler, Ninja, UI disabling, etc.
+## DENABLE_UI=OFF is needed here since we don't have Qt installed, not building the UI.
+WORKDIR /src/ecflow
+RUN cmake -B build -S . \
+    -DCMAKE_INSTALL_PREFIX=/usr/local/ecflow \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DENABLE_SERVER=ON \
+    -DENABLE_UI=OFF \
+    -DENABLE_HTTP=ON \
+    -DENABLE_PYTHON=ON \
+    -DENABLE_TESTS=ON
+RUN cmake --build build -j 4
+WORKDIR /
+
+# TODO see if NCO has a preferred path for ECF_HOME or non-default port.
+ENV ECF_HOME=/data/ecflow
+ENV ECF_PORT=3141
+
+EXPOSE 3141
+RUN mkdir -p ${ECF_HOME}
+
+# Run ecflow tests, skipping the server authentication test.
+# RUN ctest --test-dir /src/ecflow/build -E "^u_server_authentication$"
+
+# Install ecflow
+RUN cmake --build /src/ecflow/build --target install
+ENV PATH="/usr/local/ecflow/bin:${PATH}"
+
+
+# Install Docker CLI (client only, no daemon) so jobs inside the container can
+# call `docker` commands against the host daemon via the mounted socket
+# (and even use the same images that exist on the host).
+RUN dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && \
+    dnf install -y docker-ce-cli
+
+
+# Install ecf_task_mgr. ensurepip bootstraps pip since python3.11-devel ships without it.
+COPY ecf/ecf_task_mgr /opt/ecf_task_mgr
+RUN python3 -m ensurepip && python3 -m pip install /opt/ecf_task_mgr
+RUN python3 -m ensurepip && python3 -m pip install requests pytz
+
+# Dependencies of the nwm-data-assimilation make_*.py tools driven by
+# ush/nwm-realtime/da_preprocessor.py (the DA pre-processing tasks). pytz is
+# installed above and is also required by them.
+# numpy is pinned to match nwm-data-assimilation/pyproject.toml (and ngen-forcing).
+RUN python3 -m pip install netCDF4 "numpy~=1.26.4" python-dateutil
+
+# Make the ecflow Python bindings importable alongside the system Python packages.
+ENV PYTHONPATH=/usr/local/ecflow/lib/python3.11/site-packages${PYTHONPATH:+:${PYTHONPATH}}
+
+CMD ["ecflow_server", "--host=0.0.0.0"]

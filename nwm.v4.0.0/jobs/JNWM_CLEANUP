@@ -1,0 +1,74 @@
+#!/usr/bin/env sh
+
+#### UNIX Script Documentation Block
+#
+# Script Name:  JNWM_CLEANUP
+####
+
+date
+export PS4=' $SECONDS + '
+set -xa
+
+set -euo pipefail
+
+
+##########################
+# Specify NET and RUN Name
+##########################
+export NET=${NET:-nwm}
+export RUN=${RUN:-nwm}
+
+export cycle=${cycle:-t${cyc}z}
+
+########################################################
+# Make working directory and file To Log Msgs
+########################################################
+export jobid=$$
+export DATA=${DATA:-${DATAROOT:?}/${jobid}}
+
+if [ ! -e $DATA ]; then
+  mkdir -p $DATA
+fi
+
+cd ${DATA}
+
+###################################
+# Set up the PDY
+###################################
+setpdy.sh
+. ./PDY
+
+####################################
+# Determine Job Output Name on System
+####################################
+export job=${CASETYPE}
+export pgmout="OUTPUT.${job}_${PDY}${cyc}.$$"
+
+####################################
+# Specify Application Areas
+####################################
+export HOMEnwm=${HOMEnwm:-${PACKAGEROOT:?}/${model}.${nwm_ver}}
+export USHnwm=${USHnwm:-${HOMEnwm}/ush}
+export SCRIPTnwm=${SCRIPTnwm:-${HOMEnwm}/scripts}
+
+###################################
+# Data roots to be cleaned (defined in ecf/model_envir.h)
+###################################
+export COMROOT=${COMROOT:?}
+export DCOMROOT=${DCOMROOT:?}
+export DBNROOT=${DBNROOT:?}
+
+env
+
+########################################################
+# Execute the script.
+########################################################
+source ${SCRIPTnwm}/exnwm_cleanup.sh
+
+echo "JOB $job HAS COMPLETED NORMALLY."
+
+if [ "$KEEPDATA" != YES ]; then
+    rm -rf $DATA
+fi
+
+date

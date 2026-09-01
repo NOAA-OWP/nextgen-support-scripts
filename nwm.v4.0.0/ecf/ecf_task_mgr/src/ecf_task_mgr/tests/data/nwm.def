@@ -1,0 +1,33 @@
+# Definition of the suite 'nwm'
+suite nwm
+   edit ECF_HOME "/contrib/lfs/h1/owp/nwm/noscrub/Zhengtao.Cui/test/packages/nwm.v4.0.0/ecf"  # path to the package ecf directory
+   edit ECF_INCLUDE "/contrib/lfs/h1/owp/nwm/noscrub/Zhengtao.Cui/test/packages/nwm.v4.0.0/ecf"
+   edit ECF_OUT "/contrib/lfs/h1/owp/ptmp/Zhengtao.Cui/test/tmp"
+   edit CYC "$(echo %TIME%|cut -c1-2)"
+   clock real    
+   repeat date YMD 20260430 20261231 1                                                                          
+   family hourly
+     time 00:30 23:30 01:00
+     # The Analysis Assimilation family, including inland, coastal, conus, Hawaii, Alaska, PRVI
+     family nwm_analysis_assim
+       # CONUS inland Ana
+       task jnwm_conus_analysis_assim
+         edit CASETYPE CONUS_ANALYSIS_ASSIM
+     endfamily
+     # The short range forecast family
+     family nwm_short_range
+       # CONUS inland short range forecast
+       task jnwm_conus_short_range
+         edit CASETYPE CONUS_SHORT_RANGE
+         trigger ../nwm_analysis_assim/jnwm_conus_analysis_assim eq complete
+     endfamily
+   endfamily
+   family daily
+     time 18:30
+     family nwm_extended_analysis_assim
+       # CONUS inland extended AnA
+       task jnwm_conus_extended_analysis_assim
+         edit CASETYPE CONUS_EXT_ANALYSIS_ASSIM
+     endfamily
+   endfamily
+endsuite

@@ -1,3 +1,17 @@
+*.log
+
+# Python
+**/__pycache__/
+**/build/
+**/dist/
+*.egg-info
+
+# drawio backup files
+*.drawio.bkp
+
+# ecflow server data
+nwm.v4.0.0/ecflow-server/data/ecflow/
+
 # Compiled source #
 ###################
 *.com

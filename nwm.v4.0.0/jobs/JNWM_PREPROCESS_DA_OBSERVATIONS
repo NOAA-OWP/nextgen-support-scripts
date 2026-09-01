@@ -1,0 +1,102 @@
+#!/usr/bin/env sh
+
+#### UNIX Script Documentation Block
+#
+# Script Name:  JNWM
+####
+
+date
+export PS4=' $SECONDS + '
+set -xa
+
+set -euo pipefail
+
+
+##########################
+# Specify NET and RUN Name 
+##########################
+export NET=${NET:-nwm}
+export RUN=${RUN:-nwm}
+
+export cycle=${cycle:-t${cyc}z}
+
+########################################################
+# Make working directory and file To Log Msgs 
+########################################################
+export jobid=$$
+export DATA=${DATA:-${DATAROOT:?}/${jobid}}
+
+if [ ! -e $DATA ]; then
+  mkdir -p $DATA
+fi
+
+cd ${DATA}
+
+###################################
+# Set up the PDY
+###################################
+setpdy.sh
+. ./PDY
+
+####################################
+# Determine Job Output Name on System
+####################################
+export job=${CASETYPE}
+export pgmout="OUTPUT.${job}_${PDY}${cyc}.$$"
+
+####################################
+# Specify Application Areas
+####################################
+export HOMEnwm=${HOMEnwm:-${PACKAGEROOT:?}/${model}.${nwm_ver}}
+export LIBnwm=${LIBnwm:-${HOMEnwm}/lib}
+export USHnwm=${USHnwm:-${HOMEnwm}/ush}
+export PARMnwm=${PARMnwm:-${HOMEnwm}/parm}
+export SCRIPTnwm=${SCRIPTnwm:-${HOMEnwm}/scripts}
+
+###################################
+# Output data directory
+###################################
+export COMOUT=${COMOUT:-$(compath.py -o $NET/${nwm_ver})/$RUN.${PDY}}
+export COMOUTm1=${COMOUTm1:-$(compath.py -o $NET/${nwm_ver})/$RUN.${PDYm1}}
+
+if [ "$SENDCOM" = YES ]; then
+   mkdir -p $COMOUT
+fi
+
+###################################
+# define dbn_alert type
+###################################
+export DBN_ALERT_TYPE=${DBN_ALERT_TYPE:-NWM_NCDF}
+
+###################################
+# Raw observation data root
+#
+# The per-source raw directories under ${DCOMROOT}/${PDY} (usgs_streamflow,
+# can_streamgauge, usace_streamflow, rfc_reservoir) are derived by
+# DAPreprocessor, so only the root is needed here.
+###################################
+export DCOMROOT=${DCOMROOT:?}
+
+####################################
+# File To Log Msgs
+####################################
+export COMOUTlogs=${COMOUTlogs:-${COMOUT}/logs}
+
+if [ ! -e $COMOUTlogs ]; then
+   mkdir -p $COMOUTlogs
+fi
+
+env   
+
+########################################################
+# Execute the script.
+########################################################
+${SCRIPTnwm}/exnwm_preprocess_da_observations.sh
+
+echo "JOB $job HAS COMPLETED NORMALLY."
+
+if [ "$KEEPDATA" != YES ]; then
+    rm -rf $DATA
+fi
+
+date
